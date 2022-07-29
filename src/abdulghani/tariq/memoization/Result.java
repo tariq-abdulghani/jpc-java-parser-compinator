@@ -10,4 +10,20 @@ public class Result {
         this.recognizer = recognizer;
         this.indices = indices;
     }
+
+    public String getRecognizer() {
+        return recognizer;
+    }
+
+    public List<Integer> getIndices() {
+        return indices;
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "recognizer='" + recognizer + '\'' +
+                ", indices=" + indices +
+                '}';
+    }
 }

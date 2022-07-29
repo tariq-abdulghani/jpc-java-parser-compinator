@@ -27,6 +27,7 @@ public class SequenceCombinator implements Recognizer{
     }
 
     public  List<Integer> apply(String[] input, int i){
+
         Recognizer firstRecognizer = recognizersQueue.poll();
         List<Integer> indices = firstRecognizer.apply(input, i);
         while (!recognizersQueue.isEmpty()){

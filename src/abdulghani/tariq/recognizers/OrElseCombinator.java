@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrElseCombinator implements Recognizer{
+
     private  List<Recognizer> recognizers = new ArrayList<>();
 
     private  OrElseCombinator(){}
