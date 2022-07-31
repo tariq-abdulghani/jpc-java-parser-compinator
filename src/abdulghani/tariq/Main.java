@@ -2,10 +2,11 @@ package abdulghani.tariq;
 
 import abdulghani.tariq.memoization.MemoizedRecognizer;
 import abdulghani.tariq.recognizers.Recognizer;
+import abdulghani.tariq.recognizers.SequenceCombinator;
 import abdulghani.tariq.recognizers.TokenRecognizer;
 
 import static abdulghani.tariq.recognizers.OrElseCombinator.of;
-import static abdulghani.tariq.recognizers.SequenceCombinator.startWith;
+import static abdulghani.tariq.recognizers.SequenceCombinator.*;
 
 public class Main {
 
@@ -51,10 +52,39 @@ public class Main {
 
         Recognizer memVar = new MemoizedRecognizer(variableRecognizer);
         Recognizer funcOrVar =  new MemoizedRecognizer(of(memFunc).or(memVar));
-        funcOrVar.apply(input2, 0);
-        funcOrVar.apply(input2, 0);
+//        funcOrVar.apply(input2, 0);
+//        funcOrVar.apply(input2, 0);
 
 
+        /**
+         *
+         * E -> E + R | P
+         * P -> a | b
+         * R -> c | d
+         *
+         * test on a + c
+         */
+
+
+        Recognizer plus = new MemoizedRecognizer(new TokenRecognizer("PLUS", "+"));
+        Recognizer P = new MemoizedRecognizer(
+                of(new MemoizedRecognizer(new TokenRecognizer("a","a")))
+                .or(new MemoizedRecognizer(new TokenRecognizer("b", "b")))
+                );
+
+        Recognizer R = new MemoizedRecognizer(
+                of(new MemoizedRecognizer(new TokenRecognizer("c","c")))
+                        .or(new MemoizedRecognizer(new TokenRecognizer("d", "d")))
+        );
+        Recognizer S = self("S");
+        Recognizer E = new MemoizedRecognizer(memorisedSelf("E").then(plus).then(R).or(P));
+        String[] input3 = new String[]{"a", "+", "d"};
+//        System.out.println(E);
+        E.apply(input3, 0);
+
+//        P.apply(input3, 0);
+//        System.out.println("---------");
+//        R.apply(input3, 2);
     }
 
 
